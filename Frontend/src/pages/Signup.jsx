@@ -5,18 +5,21 @@ const SignupPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     age: "",
+    email:"",
     gender: "",
     phone: "",
     password: "",
   });
 
   const handleChange = (e) => {
+
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData)
       await axios.post("http://localhost:5000/api/user/signup", formData);
     } catch (error) {
       console.error(error);
@@ -38,6 +41,12 @@ const SignupPage = () => {
           type="text"
           name="age"
           placeholder="Age"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="email"
+          placeholder="Email"
           onChange={handleChange}
         />
         <input

@@ -1,10 +1,10 @@
 import { createConnection } from "mysql2";
 
 const connection = createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "yoga_brochure",
+  host: "sql6.freesqldatabase.com",
+  user: "sql6696775",
+  password: "ifr4qgqB1k",
+  database: "sql6696775",
 });
 
 connection.connect((err) => {

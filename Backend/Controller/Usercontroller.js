@@ -1,16 +1,16 @@
 import { hash, compare } from "bcrypt";
-import { sign } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { query } from "../Configure/config.js";
 
 const signup = async (req, res) => {
   try {
-    const { name, age, gender, phone, password } = req.body;
+    const { name, age, email, gender, phone, password } = req.body;
 
     const hashedPassword = await hash(password, 10);
 
     query(
-      "INSERT INTO users (name, age, gender, phone, password) VALUES (?, ?, ?, ?, ?)",
-      [name, age, gender, phone, hashedPassword],
+      "INSERT INTO Patient (name, age,email,gender, phone, password) VALUES (?, ?, ?, ?, ?, ?)",
+      [name, age, email, gender, phone, hashedPassword],
       (error, results) => {
         if (error) {
           console.error(error);
@@ -49,7 +49,7 @@ const login = async (req, res) => {
           return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        const token = sign({ userId: user.id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
 
